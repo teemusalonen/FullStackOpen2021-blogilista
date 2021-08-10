@@ -35,9 +35,31 @@ const mostBlogs = (blogs) => {
     return most
 }
 
+const mostLikes = (blogs) => {
+    let likes = 0
+    let author = ''
+    blogs.forEach(b => {
+        let current = 0
+        const temp = blogs.filter(blog => blog.author === b.author)
+        temp.forEach(a => current += a.likes)
+        if(likes < current){
+            likes = current
+            author = b.author
+        }
+    })
+    const most = {
+        author: author,
+        likes: likes
+    }
+
+    console.log("most", most)
+    return most
+}
+
 module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
-    mostBlogs
+    mostBlogs,
+    mostLikes
 }
