@@ -51,8 +51,6 @@ const mostLikes = (blogs) => {
         author: author,
         likes: likes
     }
-
-    console.log("most", most)
     return most
 }
 
