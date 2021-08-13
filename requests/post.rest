@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "moi",
-    "author": "kissa",
-    "url": "sdfsdf",
-    "likes": 1
+    "title": "kolmas",
+    "author": "lohikäärme",
+    "url": "wvw.koira.con/kissa",
+    "likes": 999
 }
