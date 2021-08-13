@@ -30,6 +30,7 @@ test('identification is id and not _id', async () => {
   expect(blogs[0].id).toBeDefined()
 })
 
+
 test('blog is added and is valid', async () => {
   const newBlog = {
     title: 'tehtävä 4.10',
@@ -49,6 +50,28 @@ test('blog is added and is valid', async () => {
 
   const titles = blogsAtTheEnd.map(b => b.title)
   expect(titles).toContain('tehtävä 4.10')
+})
+
+
+test('likes is 0 if not given', async () => {
+  const newBlog = {
+    title: 'tehtävä 4.10',
+    author: 'lohikäärme',
+    url: 'kissa.com/koira'
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsAtTheEnd = await helper.blogsInDb()
+  const likes = blogsAtTheEnd.map(b => b.likes)
+
+  // Juuri lisätyn blogin likejen arvoksi ei ole annettu mitään,
+  // testataan, että arvona on 0, niin kuin kuuluisi
+  expect(likes[blogsAtTheEnd.length-1]).toBeDefined()
 
 })
 
