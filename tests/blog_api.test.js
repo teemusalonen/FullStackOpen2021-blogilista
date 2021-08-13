@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
-const helper = require('../utils/test_helper')
+const helper = require('./test_helper')
 const app = require('../app')
 const api = supertest(app)
 
@@ -73,6 +73,30 @@ test('likes is 0 if not given', async () => {
   // testataan, että arvona on 0, niin kuin kuuluisi
   expect(likes[blogsAtTheEnd.length-1]).toBeDefined()
 
+})
+
+test('no url', async () => {
+  const newBlog = {
+    title: 'tehtävä 4.10',
+    author: 'lohikäärme',
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+})
+
+test('no title', async () => {
+  const newBlog = {
+    author: 'lohikäärme',
+    url: 'sfdölkfjsdf'
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
 })
 
 afterAll(() => {
