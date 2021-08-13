@@ -30,6 +30,28 @@ test('identification is id and not _id', async () => {
   expect(blogs[0].id).toBeDefined()
 })
 
+test('blog is added and is valid', async () => {
+  const newBlog = {
+    title: 'tehtävä 4.10',
+    author: 'lohikäärme',
+    url: 'kissa.com/koira',
+    likes: '111'
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsAtTheEnd = await helper.blogsInDb()
+  expect(blogsAtTheEnd).toHaveLength(helper.initialBlogs.length + 1)
+
+  const titles = blogsAtTheEnd.map(b => b.title)
+  expect(titles).toContain('tehtävä 4.10')
+
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
