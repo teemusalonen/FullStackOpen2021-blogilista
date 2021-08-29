@@ -99,6 +99,19 @@ test('no title', async () => {
     .expect(400)
 })
 
+test('wrong user credentials', async () => {
+  const newUser = {
+      username: "ko",
+      name: "ki",
+      password: ""
+  }
+
+  await api
+    .post('/api/users')
+    .send(newUser)
+    .expect(400)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
