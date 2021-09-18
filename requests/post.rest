@@ -1,9 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvaXJhIiwiaWQiOiI2MTJkMGE1YzUxYWYwZjRiMTA2ZTY1NjMiLCJpYXQiOjE2MzE5ODAzNDN9.1mR_LqRgln3BQ7-ktSTIHrXC0WGpiKCLtFNZgFo0a0o
 
 {
-    "title": "kolmas",
-    "author": "lohikäärme",
-    "url": "wvw.koira.con/kissa",
-    "likes": 999
+    "title": "18.9.2021",
+    "author": "lohi12käärme",
+    "url": "2345324",
+    "likes": 102
 }
