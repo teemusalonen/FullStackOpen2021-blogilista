@@ -27,7 +27,7 @@ const errorHandler = (error, request, response, next) => {
     return response.status(401).json({      
       error: 'invalid token'   
     })
-  }  
+  }
 
   next(error)
 }
@@ -37,6 +37,7 @@ const tokenExtractor = (request, response, next) => {
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {    
     request.token = authorization.substring(7)  
   }else{
+    console.log('tokenex. ei toimi, tai ei ollut POST-pyyntö. token:', request.token)
     next()  
   }  
 }
