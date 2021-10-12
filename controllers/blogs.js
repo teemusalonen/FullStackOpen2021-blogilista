@@ -75,7 +75,7 @@ blogsRouter.post('/', async (request, response) => {
 
   response.status(201).json(savedBlog.toJSON())
 })
-*/
+
 blogsRouter.delete('/:id', async (req, res) => {
   const blog = Blog.findById(req.params.id)
   const decodedToken = jwt.verify(req.token, process.env.SECRET)
@@ -92,6 +92,29 @@ blogsRouter.delete('/:id', async (req, res) => {
   }
 
   
+})*/
+
+//ÄLÄ KOSKE!!!!!! TÄMÄN PITÄISI NYT TOIMIA (12.10.2021 KLO 18:31)
+blogsRouter.delete('/:id', async (request, response) => {
+  const token = getTokenFrom(request)
+    
+  if (!token) {
+    return response.status(401).json({ error: 'token missing' })
+  }
+  
+  const decodedToken = await jwt.verify(token, process.env.SECRET)
+  
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'invalid token' })
+  }
+  const user = await User.findById(decodedToken.id)
+  const blog = await Blog.findById(request.params.id)
+
+  if (blog.user.toString() === user.id.toString()){
+    await Blog.findByIdAndRemove(request.params.id)
+    response.status(204).end()
+  }
+
 })
 
 blogsRouter.put('/:id', async (req, res) => {
