@@ -13,8 +13,6 @@ const unknownEndpoint = (request, response) => {
 }
 
 const errorHandler = (error, request, response, next) => {
-  //logger.error(error.message)
-
 
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
     return response.status(400).send({ error: 'malformatted id' })
@@ -37,7 +35,6 @@ const tokenExtractor = (request, response, next) => {
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {    
     request.token = authorization.substring(7)  
   }else{
-    console.log('tokenex. ei toimi, tai ei ollut POST-pyyntö. token:', request.token)
     next()  
   }  
 }
